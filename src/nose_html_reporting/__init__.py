@@ -1,4 +1,4 @@
-import StringIO
+from six.moves import StringIO
 import re
 import codecs
 import inspect
@@ -115,8 +115,8 @@ class HtmlReport(Plugin):
         self.global_stderr0 = None
         self.test_stdout0 = None
         self.test_stderr0 = None
-        self.testOutputBuffer = StringIO.StringIO()
-        self.globalOutputBuffer = StringIO.StringIO()
+        self.testOutputBuffer = StringIO()
+        self.globalOutputBuffer = StringIO()
         self.stdout_redirector = OutputRedirector(sys.stdout)
         self.stderr_redirector = OutputRedirector(sys.stderr)
         self.test_stdout_redirector = OutputRedirector(sys.stdout)
@@ -126,7 +126,7 @@ class HtmlReport(Plugin):
 
     def startTest(self, test):
         # just one buffer for both stdout and stderr
-        self.testOutputBuffer = StringIO.StringIO()
+        self.testOutputBuffer = StringIO()
         self.test_stdout_redirector.fp = self.testOutputBuffer
         self.test_stderr_redirector.fp = self.testOutputBuffer
         self.test_stdout0 = sys.stdout
@@ -153,7 +153,7 @@ class HtmlReport(Plugin):
 
     def begin(self):
         # just one buffer for both stdout and stderr
-        # self.outputBuffer = StringIO.StringIO()
+        # self.outputBuffer = StringIO()
         self.stdout_redirector.fp = self.globalOutputBuffer
         self.stderr_redirector.fp = self.globalOutputBuffer
         self.global_stdout0 = sys.stdout
